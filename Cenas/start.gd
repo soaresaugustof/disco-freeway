@@ -6,9 +6,6 @@ var pistas_lentas_y = [160, 216, 324, 384, 438, 544, 600]
 var score = 0
 
 func _ready():
-	$HUD/Placar.text = str(score)
-	$HUD/Mensagem.text = " "
-	$HUD/Button.hide()
 	$AudioTema.play()
 	randomize()
 
@@ -20,6 +17,7 @@ func _on_timer_carros_rapidos_timeout():
 	carro.set_linear_velocity(Vector2(randf_range(700, 710), 0))
 	carro.set_linear_damp(0.0)
 
+
 func _on_timer_carros_lentos_timeout():
 	var carro = cena_carros.instantiate()
 	carro.move_left = true 
@@ -30,27 +28,5 @@ func _on_timer_carros_lentos_timeout():
 	carro.set_linear_damp(0.0)
 
 
-func _on_player_pontua():
-	if score <= 1:
-		score += 1
-		$HUD/Placar.text = str(score)
-		$AudioPonto.play()
-		$Player.position = $Player.posicao_inicial
-	
-	if score == 1:
-		$HUD/Mensagem.show()
-		$HUD/Button.show()
-		$TimerCarrosRapidos.stop()
-		$TimerCarrosLentos.stop()
-		$AudioTema.stop()
-		$AudioVitoria.play()
-		$Player.speed = 0
-
-func _on_hud_reinicia():
-	score = 0
-	$HUD/Mensagem.hide()
-	$HUD/Placar.text = str(score)
-	$HUD/Button.hide()
-	$TimerCarrosRapidos.start()
-	$TimerCarrosLentos.start()
-	$AudioTema.play()
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Cenas/main.tscn")
