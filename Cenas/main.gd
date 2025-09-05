@@ -22,10 +22,11 @@ func _on_timer_carros_rapidos_timeout():
 
 func _on_timer_carros_lentos_timeout():
 	var carro = cena_carros.instantiate()
+	carro.move_left = true 
 	add_child(carro)
 	var pista_y = pistas_lentas_y[randi_range(0, pistas_lentas_y.size() - 1)]
-	carro.position = Vector2(-10, pista_y)
-	carro.set_linear_velocity(Vector2(randf_range(300, 310), 0))
+	carro.position = Vector2(1290, pista_y)
+	carro.set_linear_velocity(Vector2(randf_range(-300, -310), 0))
 	carro.set_linear_damp(0.0)
 
 
