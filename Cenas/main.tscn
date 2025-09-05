@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnnvlbo368pua"]
+
+[ext_resource type="Texture2D" uid="uid://83jd6bppv66o" path="res://Material Freeway/wallpaperfreeway.png" id="1_cxad2"]
+[ext_resource type="PackedScene" uid="uid://cj8x7p2auncyg" path="res://Cenas/player.tscn" id="1_g1irf"]
+[ext_resource type="Script" path="res://Cenas/main.gd" id="1_gqs0y"]
+[ext_resource type="PackedScene" uid="uid://cgqhoc5ajuge8" path="res://Cenas/linha_chegada.tscn" id="2_gbnjt"]
+[ext_resource type="PackedScene" uid="uid://bwccanavsmh6x" path="res://Cenas/hud.tscn" id="4_1klk2"]
+[ext_resource type="AudioStream" uid="uid://b7tj3u3jmnqbx" path="res://Material Freeway/sons/tema.wav" id="4_uu6mh"]
+[ext_resource type="AudioStream" uid="uid://bnqbp0uk4mnkq" path="res://Material Freeway/sons/ponto.wav" id="5_6obyj"]
+[ext_resource type="AudioStream" path="res://Material Freeway/sons/ganhou.wav" id="6_npfsf"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_gqs0y")
+
+[node name="Pista" type="Sprite2D" parent="."]
+texture = ExtResource("1_cxad2")
+centered = false
+
+[node name="Player" parent="." instance=ExtResource("1_g1irf")]
+position = Vector2(640, 690)
+
+[node name="LinhaChegada" parent="." instance=ExtResource("2_gbnjt")]
+position = Vector2(640, 64)
+
+[node name="TimerCarrosRapidos" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="TimerCarrosLentos" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="AudioTema" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_uu6mh")
+autoplay = true
+
+[node name="AudioPonto" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_6obyj")
+
+[node name="AudioVitoria" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_npfsf")
+
+[node name="HUD" parent="." instance=ExtResource("4_1klk2")]
+
+[connection signal="pontua" from="Player" to="." method="_on_player_pontua"]
+[connection signal="timeout" from="TimerCarrosRapidos" to="." method="_on_timer_carros_rapidos_timeout"]
+[connection signal="timeout" from="TimerCarrosLentos" to="." method="_on_timer_carros_lentos_timeout"]
+[connection signal="reinicia" from="HUD" to="." method="_on_hud_reinicia"]

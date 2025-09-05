@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://cj8x7p2auncyg"]
+
+[ext_resource type="Script" path="res://Cenas/player.gd" id="1_bym4w"]
+[ext_resource type="Texture2D" uid="uid://b8m72udlbos4c" path="res://Material Freeway/galinha/baixo/sprite_0.png" id="2_05fm7"]
+[ext_resource type="Texture2D" uid="uid://ddt14faxxgtau" path="res://Material Freeway/galinha/baixo/sprite_1.png" id="3_6xmbw"]
+[ext_resource type="Texture2D" uid="uid://dsulrhm0in2wf" path="res://Material Freeway/galinha/baixo/sprite_2.png" id="4_s7dh5"]
+[ext_resource type="Texture2D" uid="uid://dpavl2fwichi0" path="res://Material Freeway/galinha/cima/sprite_0.png" id="5_yhv4n"]
+[ext_resource type="Texture2D" uid="uid://h5yqfpggmrud" path="res://Material Freeway/galinha/cima/sprite_1.png" id="6_ap5sf"]
+[ext_resource type="Texture2D" uid="uid://cjhufqc11fq5l" path="res://Material Freeway/galinha/cima/sprite_2.png" id="7_hpjqa"]
+[ext_resource type="AudioStream" uid="uid://cuvdxw2tgogg1" path="res://Material Freeway/sons/colide.wav" id="8_w87wr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j3avc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_05fm7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6xmbw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_s7dh5")
+}],
+"loop": true,
+"name": &"baixo",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_yhv4n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ap5sf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hpjqa")
+}],
+"loop": true,
+"name": &"cima",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l6g7k"]
+radius = 16.0312
+
+[node name="Player" type="Area2D"]
+collision_mask = 6
+script = ExtResource("1_bym4w")
+
+[node name="Animacao" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_j3avc")
+animation = &"cima"
+
+[node name="Colisao" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_l6g7k")
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_w87wr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
