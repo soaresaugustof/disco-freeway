@@ -12,6 +12,12 @@ func _ready():
 	$AudioTema.play()
 	randomize()
 
+
+func _process(delta):
+	if not $TimerRestart.is_stopped():
+		$HUD.update_restart_clock($TimerRestart.time_left)
+
+
 func _on_timer_carros_rapidos_timeout():
 	var carro = cena_carros.instantiate()
 	add_child(carro)
@@ -38,15 +44,18 @@ func _on_player_pontua():
 		$Player.position = $Player.posicao_inicial
 	
 	if score == 1:
-		$HUD/Mensagem.show()
+		$HUD/Mensagem.text = "Parabéns, você venceu!"
 		$HUD/Button.show()
 		$TimerCarrosRapidos.stop()
 		$TimerCarrosLentos.stop()
 		$AudioTema.stop()
 		$AudioVitoria.play()
 		$Player.speed = 0
+		
+		$TimerRestart.start()
 
 func _on_hud_reinicia():
+	$TimerRestart.stop()
 	score = 0
 	$HUD/Mensagem.hide()
 	$HUD/Placar.text = str(score)
@@ -54,3 +63,8 @@ func _on_hud_reinicia():
 	$TimerCarrosRapidos.start()
 	$TimerCarrosLentos.start()
 	$AudioTema.play()
+
+
+func _on_timer_restart_timeout():
+	get_tree().paused = false
+	get_tree().reload_current_scene()

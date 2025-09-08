@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://6jc37dg8bi0e"]
 
-[ext_resource type="Script" uid="uid://bohvq5xo06r8o" path="res://Cenas/start.gd" id="1_iboa6"]
+[ext_resource type="Script" path="res://Cenas/start.gd" id="1_iboa6"]
 [ext_resource type="FontFile" uid="uid://bvfodcihxuqg5" path="res://Material Freeway/PressStart2P-Regular.ttf" id="1_wbnjd"]
 [ext_resource type="Texture2D" uid="uid://83jd6bppv66o" path="res://Material Freeway/wallpaperfreeway.png" id="2_iboa6"]
-[ext_resource type="AudioStream" uid="uid://b7tj3u3jmnqbx" path="res://Material Freeway/sons/tema.wav" id="4_248d0"]
+[ext_resource type="AudioStream" uid="uid://xj8iefw5v65b" path="res://Material Freeway/sons/start.wav" id="4_7xbx3"]
 
 [node name="Start" type="Node"]
 script = ExtResource("1_iboa6")
@@ -36,7 +36,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="HUD"]
-anchors_preset = -1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -47,15 +47,15 @@ offset_right = 100.0
 offset_bottom = -140.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_hover_pressed_color = Color(0.549338, 0.605066, 0.873675, 1)
-theme_override_colors/font_hover_color = Color(0.768627, 0.564706, 0.556863, 1)
 theme_override_colors/font_color = Color(0.262745, 0.67451, 0.921569, 1)
+theme_override_colors/font_hover_color = Color(0.768627, 0.564706, 0.556863, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.549338, 0.605066, 0.873675, 1)
 theme_override_fonts/font = ExtResource("1_wbnjd")
 theme_override_font_sizes/font_size = 20
 text = "Iniciar"
 
 [node name="AudioTema" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_248d0")
+stream = ExtResource("4_7xbx3")
 autoplay = true
 
 [node name="TimerCarrosRapidos" type="Timer" parent="."]
