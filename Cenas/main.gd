@@ -9,8 +9,11 @@ func _ready():
 	$HUD/Placar.text = str(score)
 	$HUD/Mensagem.text = " "
 	$HUD/Button.hide()
+	$HUD/MenuButton.hide()
 	$AudioTema.play()
 	randomize()
+	
+	$HUD.connect("menu", Callable(self, "_on_hud_voltar_menu"))
 
 
 func _process(delta):
@@ -37,15 +40,16 @@ func _on_timer_carros_lentos_timeout():
 
 
 func _on_player_pontua():
-	if score <= 1:
+	if score <= 2:
 		score += 1
 		$HUD/Placar.text = str(score)
 		$AudioPonto.play()
 		$Player.position = $Player.posicao_inicial
 	
-	if score == 1:
+	if score == 2:
 		$HUD/Mensagem.text = "Parabéns, você venceu!"
 		$HUD/Button.show()
+		$HUD/MenuButton.show()
 		$TimerCarrosRapidos.stop()
 		$TimerCarrosLentos.stop()
 		$AudioTema.stop()
@@ -56,14 +60,11 @@ func _on_player_pontua():
 
 func _on_hud_reinicia():
 	$TimerRestart.stop()
-	score = 0
-	$HUD/Mensagem.hide()
-	$HUD/Placar.text = str(score)
-	$HUD/Button.hide()
-	$TimerCarrosRapidos.start()
-	$TimerCarrosLentos.start()
-	$AudioTema.play()
+	get_tree().reload_current_scene()
 
+func _on_hud_voltar_menu():
+	$TimerRestart.stop()
+	get_tree().change_scene_to_file("res://Cenas/start.tscn")
 
 func _on_timer_restart_timeout():
 	get_tree().paused = false
